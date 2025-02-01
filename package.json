@@ -1,16 +1,16 @@
 {
-  "name": "es9018k2m_control",
+  "name": "ak4490_control",
   "version": "0.1.0",
-  "description": "i2c ES9018K2M function control Plugin for Volumio2",
+  "description": "i2c AK4490 function control Plugin for Volumio2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "rm -R node_modules || npm install --production && zip -r -X build.zip ./ || npm install"
   },
-  "author": "Chris Song",
-  "license": "ISC",
+  "author": "Rolf-Dieter Kaschke",
+  "license": "GPL-3.0",
   "volumio_info": {
-    "prettyName": "ES9018K2M Control",
+    "prettyName": "AK4490 Control",
     "icon": "fa-cogs",
     "plugin_type": "miscellanea"
   },
@@ -22,16 +22,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisPanda/volumio-es9018k2m-plugin.git"
+    "url": "git+https://github.com/w2tech/Volumio_AK4490.git"
   },
   "keywords": [
-    "es9018k2m",
+    "AK4490",
     "i2s DAC",
-    "Aoide DAC II",
     "volumio"
   ],
   "bugs": {
-    "url": "https://github.com/ChrisPanda/volumio-es9018k2m-plugin/issues"
+    "url": "https://github.com/w2tech/Volumio_AK4490/issues"
   },
-  "homepage": "https://github.com/ChrisPanda/volumio-es9018k2m-plugin#readme"
+  "homepage": "https://github.com/w2tech/Volumio_AK4490#readme"
 }
