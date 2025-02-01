@@ -5,19 +5,19 @@ var fs = require('fs-extra');
 var config = require('v-conf');
 var i2c = require('i2c');
 
-module.exports = ControllerES9018K2M;
+module.exports = ControllerAK4490;
 
-function ControllerES9018K2M(context) {
+function ControllerAK4490(context) {
 	var self = this;
 
   self.context = context;
   self.commandRouter = this.context.coreCommand;
   self.logger = this.context.logger;
   self.configManager = this.context.configManager;
-  self.logger.info("ControllerES9018K2M::constructor");
+  self.logger.info("ControllerControllerAK4490M::constructor");
 }
 
-ControllerES9018K2M.prototype.onVolumioStart = function()
+ControllerAK4490.prototype.onVolumioStart = function()
 {
   var self = this;
 
@@ -30,11 +30,11 @@ ControllerES9018K2M.prototype.onVolumioStart = function()
   return libQ.resolve();
 };
 
-ControllerES9018K2M.prototype.getConfigurationFiles = function () {
+ControllerAK4490.prototype.getConfigurationFiles = function () {
   return ['config.json'];
 };
 
-ControllerES9018K2M.prototype.onStart = function() {
+ControllerAK4490.prototype.onStart = function() {
   var self = this;
   
   self.loadI18nStrings();
@@ -53,33 +53,33 @@ ControllerES9018K2M.prototype.onStart = function() {
   return libQ.resolve();
 };
 
-ControllerES9018K2M.prototype.onStop = function() {
+ControllerAK4490.prototype.onStop = function() {
   var self = this;
 
   return libQ.resolve();
 };
 
-ControllerES9018K2M.prototype.onRestart = function() {
+ControllerAK4490.prototype.onRestart = function() {
   var self = this;
 
   return libQ.resolve();
 };
 
 // Configuration Methods -----------------------------------------------------
-ControllerES9018K2M.prototype.getConf = function(configFile) {
+ControllerAK4490.prototype.getConf = function(configFile) {
   var self = this;
 
   self.config = new (require('v-conf'))();
   self.config.loadFile(configFile);
 };
 
-ControllerES9018K2M.prototype.setConf = function(varName, varValue) {
+ControllerAK4490.prototype.setConf = function(varName, varValue) {
   var self = this;
 
   //Perform your installation tasks here
 };
 
-ControllerES9018K2M.prototype.setUIConfig = function(data) {
+ControllerAK4490.prototype.setUIConfig = function(data) {
   var self = this;
 
   var uiconf = fs.readJsonSync(__dirname + '/UIConfig.json');
@@ -87,7 +87,7 @@ ControllerES9018K2M.prototype.setUIConfig = function(data) {
   return libQ.resolve();
 };
 
-ControllerES9018K2M.prototype.loadConfig = function() {
+ControllerAK4490.prototype.loadConfig = function() {
   var self = this;
 
   self.volumeLevel = self.config.get("volumeLevel");
@@ -107,7 +107,7 @@ ControllerES9018K2M.prototype.loadConfig = function() {
   self.dsdLabelDPLL = self.config.get('dsdLabelDPLL');
 };
 
-ControllerES9018K2M.prototype.saveConfig = function() {
+ControllerAK4490.prototype.saveConfig = function() {
   var self = this;
 
   self.config.set('volumeLevel', self.volumeLevel);
@@ -127,7 +127,7 @@ ControllerES9018K2M.prototype.saveConfig = function() {
   self.config.set('dsdLabelDPLL', self.dsdLabelDPLL);
 };
 
-ControllerES9018K2M.prototype.getUIConfig = function() {
+ControllerAK4490.prototype.getUIConfig = function() {
   var self = this;
   var defer = libQ.defer();
   var lang_code = self.commandRouter.sharedVars.get('language_code');
@@ -172,7 +172,7 @@ ControllerES9018K2M.prototype.getUIConfig = function() {
   return defer.promise;
 };
 
-ControllerES9018K2M.prototype.updateUIConfig = function() {
+ControllerAK4490.prototype.updateUIConfig = function() {
   var self=this;
 
   var lang_code = self.commandRouter.sharedVars.get('language_code');
@@ -227,7 +227,7 @@ ControllerES9018K2M.prototype.updateUIConfig = function() {
   });
 };
 
-ControllerES9018K2M.prototype.loadI18nStrings = function () {
+ControllerAK4490.prototype.loadI18nStrings = function () {
   var self=this;
   var language_code = this.commandRouter.sharedVars.get('language_code');
 
@@ -235,7 +235,7 @@ ControllerES9018K2M.prototype.loadI18nStrings = function () {
   self.i18nStringsDefaults=fs.readJsonSync(__dirname+'/i18n/strings_en.json');
 };
 
-ControllerES9018K2M.prototype.getI18nString = function (key) {
+ControllerAK4490.prototype.getI18nString = function (key) {
   var self=this;
 
   if (self.i18nStrings[key] !== undefined)
@@ -245,7 +245,7 @@ ControllerES9018K2M.prototype.getI18nString = function (key) {
 };
 
 // es9018km Control Methods -------------------------------------------------
-ControllerES9018K2M.prototype.initVariables = function() {
+ControllerAK4490.prototype.initVariables = function() {
   var self=this;
 
   self.ready = true;
@@ -274,7 +274,7 @@ ControllerES9018K2M.prototype.initVariables = function() {
   self.enableTHD = false;
 };
 
-ControllerES9018K2M.prototype.initRegister = function()
+ControllerAK4490.prototype.initRegister = function()
 {
   var self = this;
 
@@ -288,7 +288,7 @@ ControllerES9018K2M.prototype.initRegister = function()
   self.reg21=0x00; // GPIO and OSF(Oversampling) Bypass
 };
 
-ControllerES9018K2M.prototype.initDevice = function() {
+ControllerAK4490.prototype.initDevice = function() {
   var self = this;
 
   self.messageOn = false;
@@ -300,7 +300,7 @@ ControllerES9018K2M.prototype.initDevice = function() {
   self.unmuteES9018K2m();
 };
 
-ControllerES9018K2M.prototype.execDeviceCheckControl = function() {
+ControllerAK4490.prototype.execDeviceCheckControl = function() {
   var self=this;
   var revision, message, checkSampleRate=false;
 
@@ -337,7 +337,7 @@ ControllerES9018K2M.prototype.execDeviceCheckControl = function() {
   });
 };
 
-ControllerES9018K2M.prototype.applyFunction = function() {
+ControllerAK4490.prototype.applyFunction = function() {
   var self = this;
 
   self.messageOn = false;
@@ -355,7 +355,7 @@ ControllerES9018K2M.prototype.applyFunction = function() {
   self.unmuteES9018K2m();
 };
 
-ControllerES9018K2M.prototype.execResetDeviceControl= function() {
+ControllerAK4490.prototype.execResetDeviceControl= function() {
   var self = this;
 
   if (!self.es9018k2m) {
@@ -371,7 +371,7 @@ ControllerES9018K2M.prototype.execResetDeviceControl= function() {
   self.commandRouter.pushToastMessage('info', self.serviceName, self.getI18nString('LOAD_DEFAULT'));
 };
 
-ControllerES9018K2M.prototype.execVolumeControl = function(data) {
+ControllerAK4490.prototype.execVolumeControl = function(data) {
   var self = this;
 
   if (!self.es9018k2m) {
@@ -398,7 +398,7 @@ ControllerES9018K2M.prototype.execVolumeControl = function(data) {
   }
 };
 
-ControllerES9018K2M.prototype.execDpllControl = function (data) {
+ControllerAK4490.prototype.execDpllControl = function (data) {
   var self = this;
 
   if (!self.es9018k2m) {
@@ -416,7 +416,7 @@ ControllerES9018K2M.prototype.execDpllControl = function (data) {
 };
 
 // DPLL Mode for I2S
-ControllerES9018K2M.prototype.setI2sDPLL = function (selected) {
+ControllerAK4490.prototype.setI2sDPLL = function (selected) {
   var self=this;
   var result;
 
@@ -435,7 +435,7 @@ ControllerES9018K2M.prototype.setI2sDPLL = function (selected) {
 };
 
 // DPLL Mode for DSD
-ControllerES9018K2M.prototype.setDsdDPLL = function (selected) {
+ControllerAK4490.prototype.setDsdDPLL = function (selected) {
   var self=this;
   var result;
 
@@ -453,7 +453,7 @@ ControllerES9018K2M.prototype.setDsdDPLL = function (selected) {
   self.config.set('dsdLabelDPLL', self.dsdLabelDPLL);
 };
 
-ControllerES9018K2M.prototype.execDigitalFilterControl = function(data) {
+ControllerAK4490.prototype.execDigitalFilterControl = function(data) {
   var self=this;
 
   if (!self.es9018k2m) {
@@ -471,7 +471,7 @@ ControllerES9018K2M.prototype.execDigitalFilterControl = function(data) {
     self.setDeemphasisFilter(selectedDeemphasis);
 };
 
-ControllerES9018K2M.prototype.setFirFilter = function(selected){
+ControllerAK4490.prototype.setFirFilter = function(selected){
   var self=this;
   var result;
 
@@ -513,7 +513,7 @@ ControllerES9018K2M.prototype.setFirFilter = function(selected){
   self.config.set('firLabel', self.firLabel);
 };
 
-ControllerES9018K2M.prototype.setIirFilter = function(selected) {
+ControllerAK4490.prototype.setIirFilter = function(selected) {
   var self=this;
   var result;
 
@@ -562,7 +562,7 @@ ControllerES9018K2M.prototype.setIirFilter = function(selected) {
   self.config.set('iirLabel', self.iirLabel);
 };
 
-ControllerES9018K2M.prototype.setDeemphasisFilter = function(selected) {
+ControllerAK4490.prototype.setDeemphasisFilter = function(selected) {
   var self=this;
   var result;
 
@@ -582,7 +582,7 @@ ControllerES9018K2M.prototype.setDeemphasisFilter = function(selected) {
 };
 
 // lBal and rBal are for adjusting for Balance for left and right channels
-ControllerES9018K2M.prototype.setVolume = function(regVal) {
+ControllerAK4490.prototype.setVolume = function(regVal) {
   var self=this;
 
   var value = 100 - regVal;
@@ -593,7 +593,7 @@ ControllerES9018K2M.prototype.setVolume = function(regVal) {
     self.commandRouter.pushToastMessage('info', self.serviceName, self.getI18nString('APPLY_VOLUME'));
 };
 
-ControllerES9018K2M.prototype.muteES9018K2m  = function(){
+ControllerAK4490.prototype.muteES9018K2m  = function(){
   var self = this;
 
   self.reg7=self.bitset(self.reg7, 0);  // mute channel 1
@@ -601,7 +601,7 @@ ControllerES9018K2M.prototype.muteES9018K2m  = function(){
   self.writeRegister(7, self.reg7);
 };
 
-ControllerES9018K2M.prototype.unmuteES9018K2m  = function(){
+ControllerAK4490.prototype.unmuteES9018K2m  = function(){
   var self = this;
 
   self.reg7=self.bitclear(self.reg7, 0);  // unmute channel 1
@@ -609,7 +609,7 @@ ControllerES9018K2M.prototype.unmuteES9018K2m  = function(){
   self.writeRegister(7, self.reg7);
 };
 
-ControllerES9018K2M.prototype.execBalanceControl = function(data) {
+ControllerAK4490.prototype.execBalanceControl = function(data) {
   var self = this;
 
   if (!self.es9018k2m) {
@@ -636,7 +636,7 @@ ControllerES9018K2M.prototype.execBalanceControl = function(data) {
   }
 };
 
-ControllerES9018K2M.prototype.switchChannel = function() {
+ControllerAK4490.prototype.switchChannel = function() {
   var self = this;
 
   if (self.channel)
@@ -645,7 +645,7 @@ ControllerES9018K2M.prototype.switchChannel = function() {
     self.writeRegister(11, 0x01);
 };
 
-ControllerES9018K2M.prototype.setBalance = function(value){
+ControllerAK4490.prototype.setBalance = function(value){
   var self=this;
   var result;
 
@@ -683,7 +683,7 @@ ControllerES9018K2M.prototype.setBalance = function(value){
     self.commandRouter.pushToastMessage('info', self.serviceName, result);
 };
 
-ControllerES9018K2M.prototype.execResetBalanceControl = function() {
+ControllerAK4490.prototype.execResetBalanceControl = function() {
   var self = this;
 
   if (!self.es9018k2m) {
@@ -697,7 +697,7 @@ ControllerES9018K2M.prototype.execResetBalanceControl = function() {
   self.updateUIConfig();
 };
 
-ControllerES9018K2M.prototype.getSampleRate = function() {
+ControllerAK4490.prototype.getSampleRate = function() {
   var self=this;
   var defer = libQ.defer();
   var nDPLL=0;
@@ -734,7 +734,7 @@ ControllerES9018K2M.prototype.getSampleRate = function() {
   return defer.promise;
 };
 
-ControllerES9018K2M.prototype.parseSampleRate = function() {
+ControllerAK4490.prototype.parseSampleRate = function() {
   var self = this;
   var mode;
   var defer = libQ.defer();
@@ -796,16 +796,16 @@ ControllerES9018K2M.prototype.parseSampleRate = function() {
   return defer.promise;
 };
 
-// es9018km i2c Control Methods ---------------------------------------------
-ControllerES9018K2M.prototype.bitset = function(reg, value) {
+// ak4490 i2c Control Methods ---------------------------------------------
+ControllerAK4490.prototype.bitset = function(reg, value) {
   return reg |= (1 << value);
 };
 
-ControllerES9018K2M.prototype.bitclear = function(reg, value) {
+ControllerAK4490.prototype.bitclear = function(reg, value) {
   return reg &= ~(1 << value);
 };
 
-ControllerES9018K2M.prototype.readRegister = function(regAddr) {
+ControllerAK4490.prototype.readRegister = function(regAddr) {
   var self=this;
   var defer = libQ.defer();
 
@@ -828,7 +828,7 @@ ControllerES9018K2M.prototype.readRegister = function(regAddr) {
   return defer.promise;
 };
 
-ControllerES9018K2M.prototype.writeRegister = function(regAddr, regVal) {
+ControllerAK4490.prototype.writeRegister = function(regAddr, regVal) {
   var self=this;
 
   try {
