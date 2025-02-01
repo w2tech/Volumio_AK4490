@@ -1,1 +1,9 @@
+{
+	"VOLUMIO_AK4490":{
+	"PLUGINCONF":"Volumio AK4490 I2Cconfiguration",
+	"GPIOCONFIG":"GPIO configuration",
+	"D_GPIOCONFIG":"Configure the GPIO pins to use for the AK4490 Codex
+	"SAVE": "Save"
+	}
+}
 
